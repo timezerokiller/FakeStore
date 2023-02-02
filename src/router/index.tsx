@@ -4,9 +4,9 @@ import {
   Route,
 } from "react-router-dom";
 
-import { CategoryPage } from "../pages/category";
-import { HomePage } from "../pages/home";
-import { ResponsiveTemplate } from "../widget/template";
+import { CategoryPage } from "pages/category";
+import { HomePage } from "pages/home";
+import { ResponsiveTemplate } from "widget/template";
 
 const AppLayout = () => (
   <>

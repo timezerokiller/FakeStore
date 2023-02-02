@@ -9,32 +9,28 @@ import ListItemText from "@mui/material/ListItemText";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-import { getAllCategories } from "../../shared/api/categories";
+import { useGetCategories } from "shared/hooks/useGetCategories";
 
 export const Navbar = () => {
-  const [menu, setMenu] = useState<string[]>([]);
-  useEffect(() => {
-    const getCategories = async () => {
-      setMenu((await getAllCategories()).data);
-    };
-    getCategories();
-  }, []);
+  const { data, isError, isLoading } = useGetCategories();
 
-  return (
-    <List>
-      {menu.length > 0 ? (
-        menu.map((category, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton>
-              <Link to={`/category/${category}`}>{category}</Link>
-            </ListItemButton>
-          </ListItem>
-        ))
-      ) : (
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <CircularProgress />
-        </Box>
-      )}
-    </List>
-  );
+  console.log(data, "data");
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (data) {
+    return data.map((category, index) => (
+      <ListItem key={index} disablePadding>
+        <ListItemButton>
+          <Link to={`/category/${category}`}>{category}</Link>
+        </ListItemButton>
+      </ListItem>
+    ));
+  }
 };
