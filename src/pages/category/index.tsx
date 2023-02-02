@@ -12,7 +12,6 @@ import { useGetCategoryProducts } from 'shared/hooks/useGetCategoryProducts'
 
 export const CategoryPage = () => {
     const { categoryName } = useParams()
-    const [products, setProducts] = useState<IProduct[] | undefined>(undefined)
 
     if (categoryName) {
         const { data, isError, isLoading } = useGetCategoryProducts(categoryName)
