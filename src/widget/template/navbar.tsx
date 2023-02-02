@@ -22,6 +22,14 @@ export const Navbar = () => {
         )
     }
 
+    if (isError) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ color: 'red' }}>Ошибка</div>
+            </Box>
+        )
+    }
+
     if (data) {
         return (
             <>
@@ -38,6 +46,12 @@ export const Navbar = () => {
                     </Link>
                 ))}
             </>
+        )
+    } else {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ color: 'red' }}>Список категорий пуст</div>
+            </Box>
         )
     }
 }
