@@ -20,12 +20,10 @@ export function useGetCategories() {
     }
   }, [status, dispatch]);
 
-  // derive status booleans for ease of use
   const isUninitialized = status === undefined;
   const isLoading = status === "загрузка" || status === undefined;
   const isError = status === "ошибка";
   const isSuccess = status === "успешно";
 
-  // return the import data for the caller of the hook to use
   return { data, isUninitialized, isLoading, isError, isSuccess };
 }
