@@ -27,7 +27,7 @@ export const router = createBrowserRouter(
                 element={<CategoryPage />}
                 handle={{
                     crumb: (data: string, categoryId: string) => (
-                        <Link to={`/product/${categoryId}`}>{data}</Link>
+                        <Link to={`/category/${categoryId}`}>{data}</Link>
                     ),
                 }}
             />
