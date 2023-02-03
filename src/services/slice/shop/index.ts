@@ -37,6 +37,9 @@ export const shopSlice = createSlice({
         removeProductInCard: (state, action: PayloadAction<number>) => {
             state.card = state.card.filter((product) => product.id !== action.payload)
         },
+        resetStatusByProduct: (state) => {
+            state.statusByProduct = undefined
+        },
     },
     extraReducers: (builder) => {
         builderGetAllCategories(builder),
@@ -60,4 +63,4 @@ export const selectStatusCategoryProducts = (state: RootState, category: string)
 export const selectDataCategoryProducts = (state: RootState, category: string) =>
     state.shop.products[category]
 
-export const { addProductInCard, removeProductInCard } = shopSlice.actions
+export const { addProductInCard, removeProductInCard, resetStatusByProduct } = shopSlice.actions

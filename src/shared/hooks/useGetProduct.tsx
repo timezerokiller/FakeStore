@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "services"
-import { getDataOneProduct, getStatusOneProduct } from "services/slice/shop"
+import { getDataOneProduct, getStatusOneProduct, resetStatusByProduct } from "services/slice/shop"
 import { fetchOneProductById } from "services/slice/shop/fetcher"
 import { useAppDispatch } from "./redux/useAppDispatch"
 
@@ -14,7 +14,7 @@ export function useGetProduct(productId: number) {
         if (status === undefined) {
             dispatch(fetchOneProductById(productId))
         }
-    }, [status, dispatch])
+    }, [status, dispatch, productId])
 
     const isUninitialized = status === undefined
     const isLoading = status === "загрузка" || status === undefined

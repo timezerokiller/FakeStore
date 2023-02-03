@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import Box from "@mui/material/Box"
@@ -7,9 +8,18 @@ import Stack from "@mui/material/Stack"
 
 import { useGetProduct } from "shared/hooks/useGetProduct"
 import { Breadcrumbs } from "widget/components/breadcrumbs"
+import { useAppDispatch } from "shared/hooks/redux/useAppDispatch"
+import { resetStatusByProduct } from "services/slice/shop"
 
 export const ProductPage = () => {
     const { productId } = useParams()
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetStatusByProduct())
+        }
+    }, [])
 
     if (productId) {
         const { data, isError, isLoading } = useGetProduct(+productId)
