@@ -16,16 +16,13 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { Button } from "@mui/material"
 
 import { PRODUCT_URL } from "shared/constants"
-import { EnumSeverity, Notification } from "widget/components/notification"
 import { removeProductInCard } from "services/slice/shop"
+import { useSnackbar } from "notistack"
 
 export const CardPage = () => {
-    const [open, setOpen] = useState(false)
-    const [title, setTitle] = useState("")
     const card = useAppSelector((state) => state.shop.card)
     const dispatch = useAppDispatch()
-
-    console.log(card)
+    const { enqueueSnackbar } = useSnackbar()
 
     const handleClickRemoveProduct = (
         event: MouseEvent<HTMLButtonElement>,
@@ -34,8 +31,7 @@ export const CardPage = () => {
     ) => {
         event.preventDefault()
         dispatch(removeProductInCard(productId))
-        setOpen(true)
-        setTitle(productTitle)
+        enqueueSnackbar(`Товар ${productTitle} удален из корзины`, { variant: "warning" })
     }
 
     return (
@@ -82,12 +78,6 @@ export const CardPage = () => {
                                 </TableCell>
                             </TableRow>
                         ))}
-                        <Notification
-                            text={`Товар ${title} удален из корзины`}
-                            severity={EnumSeverity.warning}
-                            open={open}
-                            setOpen={setOpen}
-                        />
                     </TableBody>
                 </Table>
             </TableContainer>

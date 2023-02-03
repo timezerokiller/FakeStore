@@ -14,7 +14,7 @@ import { useAppDispatch } from "shared/hooks/redux/useAppDispatch"
 import { addProductInCard } from "services/slice/shop"
 import { PRODUCT_URL } from "shared/constants"
 import { IProduct } from "shared/interface/product"
-import { Notification, EnumSeverity } from "./notification"
+import { useSnackbar } from "notistack"
 
 type props = {
     product: IProduct
@@ -22,14 +22,12 @@ type props = {
 
 export const ProductCard = (props: props) => {
     const dispatch = useAppDispatch()
-    const [open, setOpen] = useState(false)
-    const [title, setTitle] = useState("")
+    const { enqueueSnackbar } = useSnackbar()
 
     const handleClickAddCard = (event: MouseEvent<HTMLButtonElement>, productTitle: string) => {
         event.preventDefault()
         dispatch(addProductInCard(props.product))
-        setOpen(true)
-        setTitle(productTitle)
+        enqueueSnackbar(`Товар ${productTitle} добавлен в корзину`, { variant: "success" })
     }
 
     return (
@@ -62,12 +60,6 @@ export const ProductCard = (props: props) => {
                     </Link>
                 </CardActions>
             </Card>
-            <Notification
-                text={`Товар ${title} добавлен в корзину`}
-                severity={EnumSeverity.success}
-                open={open}
-                setOpen={setOpen}
-            />
         </>
     )
 }
