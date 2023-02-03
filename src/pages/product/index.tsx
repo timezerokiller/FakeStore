@@ -26,22 +26,30 @@ export const ProductPage = () => {
             return <p>Ошибка</p>
         }
 
-        return (
-            <Container>
-                <Stack spacing={2}>
-                    <Breadcrumbs text={data?.title} id={data?.id} />
-                    <h1>{data?.title}</h1>
-                    <img src={data?.image} width="100%" height="100%" />
-                    <p>
-                        <strong>Категория:</strong> {data?.category}
-                    </p>
-                    <p>
-                        <strong>Цена:</strong> {data?.price}$
-                    </p>
-                    <p>{data?.description}</p>
-                </Stack>
-            </Container>
-        )
+        if (data) {
+            return (
+                <Container>
+                    <Stack spacing={2}>
+                        <Breadcrumbs text={data.title} id={data?.id} />
+                        <h1>{data.title}</h1>
+                        <img src={data.image} width="100%" height="100%" />
+                        <p>
+                            <strong>Категория:</strong> {data.category}
+                        </p>
+                        <p>
+                            <strong>Цена:</strong> {data.price}$
+                        </p>
+                        <p>{data.description}</p>
+                    </Stack>
+                </Container>
+            )
+        } else {
+            return (
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <CircularProgress />
+                </Box>
+            )
+        }
     }
 
     return <h1>ProductPage</h1>
