@@ -23,44 +23,51 @@ type props = {
 export const ProductCard = (props: props) => {
     const dispatch = useAppDispatch()
     const [open, setOpen] = useState(false)
+    const [title, setTitle] = useState("")
 
-    const handleClickAddCard = (event: MouseEvent<HTMLButtonElement>) => {
+    const handleClickAddCard = (event: MouseEvent<HTMLButtonElement>, productTitle: string) => {
         event.preventDefault()
         dispatch(addProductInCard(props.product))
         setOpen(true)
+        setTitle(productTitle)
     }
 
     return (
-        <Card>
-            <CardMedia
-                sx={{ height: 140 }}
-                image={props.product.image}
-                title={props.product.title}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {props.product.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {props.product.description}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button onClick={handleClickAddCard} size="small">
-                    <AddShoppingCartIcon />
-                </Button>
-                <Link to={`${PRODUCT_URL}/${props.product.id}`}>
-                    <Button size="small">
-                        <ReadMoreIcon />
-                    </Button>
-                </Link>
-                <Notification
-                    text={`Товар ${props.product.title} добавлен в корзину`}
-                    severity={EnumSeverity.success}
-                    open={open}
-                    setOpen={setOpen}
+        <>
+            <Card>
+                <CardMedia
+                    sx={{ height: 140 }}
+                    image={props.product.image}
+                    title={props.product.title}
                 />
-            </CardActions>
-        </Card>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.product.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {props.product.description}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button
+                        onClick={(event) => handleClickAddCard(event, props.product.title)}
+                        size="small"
+                    >
+                        <AddShoppingCartIcon />
+                    </Button>
+                    <Link to={`${PRODUCT_URL}/${props.product.id}`}>
+                        <Button size="small">
+                            <ReadMoreIcon />
+                        </Button>
+                    </Link>
+                </CardActions>
+            </Card>
+            <Notification
+                text={`Товар ${title} добавлен в корзину`}
+                severity={EnumSeverity.success}
+                open={open}
+                setOpen={setOpen}
+            />
+        </>
     )
 }
