@@ -1,11 +1,13 @@
-import * as React from 'react'
-import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
-import MailIcon from '@mui/icons-material/Mail'
+import * as React from "react"
+import IconButton from "@mui/material/IconButton"
+import Badge from "@mui/material/Badge"
+import MailIcon from "@mui/icons-material/Mail"
+import { OverridableComponent } from "@mui/material/OverridableComponent"
+import { SvgIconTypeMap } from "@mui/material"
 
 function notificationsLabel(count: number, max: number) {
     if (count > max) {
-        return 'more than 99 notifications'
+        return "more than 99 notifications"
     }
 }
 

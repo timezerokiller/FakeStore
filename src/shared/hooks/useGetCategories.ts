@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from 'services'
-import { fetchAllCategories, getDataCategories, getStatusCategories } from 'services/slice/shop'
-import { useAppDispatch } from './redux/useAppDispatch'
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "services"
+import { getDataCategories, getStatusCategories } from "services/slice/shop"
+import { fetchAllCategories } from "services/slice/shop/fetcher"
+import { useAppDispatch } from "./redux/useAppDispatch"
 
 export function useGetCategories() {
     const dispatch = useAppDispatch()
@@ -16,9 +17,9 @@ export function useGetCategories() {
     }, [status, dispatch])
 
     const isUninitialized = status === undefined
-    const isLoading = status === 'загрузка' || status === undefined
-    const isError = status === 'ошибка'
-    const isSuccess = status === 'успешно'
+    const isLoading = status === "загрузка" || status === undefined
+    const isError = status === "ошибка"
+    const isSuccess = status === "успешно"
 
     return { data, isUninitialized, isLoading, isError, isSuccess }
 }

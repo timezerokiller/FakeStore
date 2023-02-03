@@ -1,26 +1,54 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Link, Route } from "react-router-dom"
 
-import { CategoryPage } from "pages/category";
-import { HomePage } from "pages/home";
-import { ResponsiveTemplate } from "widget/template";
+import { CategoryPage } from "pages/category"
+import { HomePage } from "pages/home"
+import { ResponsiveTemplate } from "widget/template"
+import { ProductPage } from "pages/product"
+import { CardPage } from "pages/card"
 
 const AppLayout = () => (
-  <>
-    <ResponsiveTemplate />
-  </>
-);
+    <>
+        <ResponsiveTemplate />
+    </>
+)
 
 export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route element={<AppLayout />}>
-      <Route path="/" element={<HomePage />} />
-      <Route element={<CategoryPage />}>
-        <Route path="category/:categoryName" element={<CategoryPage />} />
-      </Route>
-    </Route>
-  )
-);
+    createRoutesFromElements(
+        <Route
+            path="/"
+            element={<AppLayout />}
+            handle={{
+                crumb: () => <Link to="/">Home</Link>,
+            }}
+        >
+            <Route index element={<HomePage />} />
+            <Route
+                path="category/:categoryName"
+                element={<CategoryPage />}
+                handle={{
+                    crumb: (data: string, categoryId: string) => (
+                        <Link to={`/product/${categoryId}`}>{data}</Link>
+                    ),
+                }}
+            />
+            <Route
+                path="product/:productId"
+                element={<ProductPage />}
+                handle={{
+                    crumb: (data: string, productId: number) => {
+                        return <Link to={`/product/${productId}`}>{data}</Link>
+                    },
+                }}
+            />
+            <Route
+                path="card"
+                element={<CardPage />}
+                handle={{
+                    crumb: () => {
+                        return <Link to={`/card`}>CardPage</Link>
+                    },
+                }}
+            />
+        </Route>
+    )
+)

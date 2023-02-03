@@ -1,21 +1,20 @@
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "services"
-import { selectDataCategoryProducts, selectStatusCategoryProducts } from "services/slice/shop"
-import { fetchInCategory } from "services/slice/shop/fetcher"
+import { getDataOneProduct, getStatusOneProduct } from "services/slice/shop"
+import { fetchOneProductById } from "services/slice/shop/fetcher"
 import { useAppDispatch } from "./redux/useAppDispatch"
 
-export function useGetCategoryProducts(category: string) {
+export function useGetProduct(productId: number) {
     const dispatch = useAppDispatch()
-
-    const status = useSelector((state: RootState) => selectStatusCategoryProducts(state, category))
-    const data = useSelector((state: RootState) => selectDataCategoryProducts(state, category))
+    const status = useSelector((state: RootState) => getStatusOneProduct(state))
+    const data = useSelector((state: RootState) => getDataOneProduct(state))
 
     useEffect(() => {
         if (status === undefined) {
-            dispatch(fetchInCategory(category))
+            dispatch(fetchOneProductById(productId))
         }
-    }, [status, category, dispatch])
+    }, [status, dispatch])
 
     const isUninitialized = status === undefined
     const isLoading = status === "загрузка" || status === undefined
