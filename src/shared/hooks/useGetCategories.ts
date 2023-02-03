@@ -1,29 +1,24 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "services";
-import {
-  fetchAllCategories,
-  getDataCategories,
-  getStatusCategories,
-} from "services/slice/shop";
-import { useAppDispatch } from "./redux/useAppDispatch";
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services'
+import { fetchAllCategories, getDataCategories, getStatusCategories } from 'services/slice/shop'
+import { useAppDispatch } from './redux/useAppDispatch'
 
 export function useGetCategories() {
-  const dispatch = useAppDispatch();
-  const status = useSelector((state: RootState) => getStatusCategories(state));
-  const data = useSelector((state: RootState) => getDataCategories(state));
+    const dispatch = useAppDispatch()
+    const status = useSelector((state: RootState) => getStatusCategories(state))
+    const data = useSelector((state: RootState) => getDataCategories(state))
 
-  useEffect(() => {
-    console.log(status, "status");
-    if (status === undefined) {
-      dispatch(fetchAllCategories());
-    }
-  }, [status, dispatch]);
+    useEffect(() => {
+        if (status === undefined) {
+            dispatch(fetchAllCategories())
+        }
+    }, [status, dispatch])
 
-  const isUninitialized = status === undefined;
-  const isLoading = status === "загрузка" || status === undefined;
-  const isError = status === "ошибка";
-  const isSuccess = status === "успешно";
+    const isUninitialized = status === undefined
+    const isLoading = status === 'загрузка' || status === undefined
+    const isError = status === 'ошибка'
+    const isSuccess = status === 'успешно'
 
-  return { data, isUninitialized, isLoading, isError, isSuccess };
+    return { data, isUninitialized, isLoading, isError, isSuccess }
 }
