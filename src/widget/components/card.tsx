@@ -12,7 +12,7 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore"
 
 import { useAppDispatch } from "shared/hooks/redux/useAppDispatch"
 import { addProductInCard } from "services/slice/shop"
-import { CATEGORY_URL, PRODUCT_URL } from "shared/constants"
+import { PRODUCT_URL } from "shared/constants"
 import { IProduct } from "shared/interface/product"
 import { Notification, EnumSeverity } from "./notification"
 

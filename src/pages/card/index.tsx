@@ -21,15 +21,21 @@ import { removeProductInCard } from "services/slice/shop"
 
 export const CardPage = () => {
     const [open, setOpen] = useState(false)
+    const [title, setTitle] = useState("")
     const card = useAppSelector((state) => state.shop.card)
     const dispatch = useAppDispatch()
 
     console.log(card)
 
-    const handleClickRemoveProduct = (event: MouseEvent<HTMLButtonElement>, productId: number) => {
+    const handleClickRemoveProduct = (
+        event: MouseEvent<HTMLButtonElement>,
+        productId: number,
+        productTitle: string
+    ) => {
         event.preventDefault()
         dispatch(removeProductInCard(productId))
         setOpen(true)
+        setTitle(productTitle)
     }
 
     return (
@@ -64,20 +70,24 @@ export const CardPage = () => {
                                 <TableCell align="right">
                                     <Button
                                         onClick={(event) => {
-                                            handleClickRemoveProduct(event, product.id)
+                                            handleClickRemoveProduct(
+                                                event,
+                                                product.id,
+                                                product.title
+                                            )
                                         }}
                                     >
                                         <DeleteIcon />
                                     </Button>
-                                    <Notification
-                                        text={`Товар ${product.title} удален из корзины`}
-                                        severity={EnumSeverity.warning}
-                                        open={open}
-                                        setOpen={setOpen}
-                                    />
                                 </TableCell>
                             </TableRow>
                         ))}
+                        <Notification
+                            text={`Товар ${title} удален из корзины`}
+                            severity={EnumSeverity.warning}
+                            open={open}
+                            setOpen={setOpen}
+                        />
                     </TableBody>
                 </Table>
             </TableContainer>
