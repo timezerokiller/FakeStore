@@ -5,6 +5,8 @@ import { HomePage } from "pages/home"
 import { ResponsiveTemplate } from "widget/template"
 import { ProductPage } from "pages/product"
 import { CardPage } from "pages/card"
+import { useGetProduct } from "shared/hooks/useGetProduct"
+import { getOneProductFromApi } from "services/api/product"
 
 const AppLayout = () => (
     <>
@@ -18,25 +20,52 @@ export const router = createBrowserRouter(
             path="/"
             element={<AppLayout />}
             handle={{
-                crumb: () => <Link to="/">Home</Link>,
+                crumb: () => (
+                    <Link key="home" to="/">
+                        Home
+                    </Link>
+                ),
             }}
         >
             <Route index element={<HomePage />} />
             <Route
                 path="category/:categoryName"
                 element={<CategoryPage />}
+                loader={async ({ params }) => {
+                    return params.categoryName
+                }}
                 handle={{
-                    crumb: (data: string, categoryId: string) => (
-                        <Link to={`/category/${categoryId}`}>{data}</Link>
+                    crumb: (data: string) => (
+                        <Link key={data} to={`/category/${data}`}>
+                            {data}
+                        </Link>
                     ),
                 }}
             >
                 <Route
                     path="product/:productId"
                     element={<ProductPage />}
+                    loader={async ({ params }) => {
+                        const productId = params.productId
+                        if (productId) {
+                            const data = await getOneProductFromApi(+productId)
+                            return {
+                                title: data.title,
+                                id: data.id,
+                                category: data.category,
+                            }
+                        }
+                    }}
                     handle={{
-                        crumb: (data: string, productId: number) => {
-                            return <Link to={`/product/${productId}`}>{data}</Link>
+                        crumb: (data: { title: string; id: number; category: string }) => {
+                            return (
+                                <Link
+                                    key={data.title}
+                                    to={`/category/${data.category}/product/${data.id}`}
+                                >
+                                    {data.title}
+                                </Link>
+                            )
                         },
                     }}
                 />
@@ -46,7 +75,11 @@ export const router = createBrowserRouter(
                 element={<CardPage />}
                 handle={{
                     crumb: () => {
-                        return <Link to={`/card`}>CardPage</Link>
+                        return (
+                            <Link key={"Card"} to={`/card`}>
+                                Card
+                            </Link>
+                        )
                     },
                 }}
             />

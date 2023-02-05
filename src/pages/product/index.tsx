@@ -40,7 +40,7 @@ export const ProductPage = () => {
             return (
                 <Container>
                     <Stack spacing={2}>
-                        <Breadcrumbs text={data.title} id={data?.id} />
+                        <Breadcrumbs />
                         <h1>{data.title}</h1>
                         <img src={data.image} width="100%" height="100%" />
                         <p>

@@ -44,7 +44,7 @@ export const ProductsInCategory = ({
 
     return (
         <Stack>
-            <Breadcrumbs text={categoryName} id={categoryName} />
+            <Breadcrumbs />
             <h1>{categoryName}</h1>
             <Grid container spacing={2}>
                 {data ? (

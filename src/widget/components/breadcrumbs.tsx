@@ -1,36 +1,35 @@
-import { Fragment } from "react"
-import { Link, useMatches } from "react-router-dom"
+import { useMatches } from "react-router-dom"
 
 import MuiBreadcrumbs from "@mui/material/Breadcrumbs"
 import Stack from "@mui/material/Stack"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 
-type Props = {
-    text?: string
-    id?: number | string
-}
-let crumbs
+declare function useMatchesFix(): Omit<ReturnType<typeof useMatches>, "handle" | "data"> &
+    {
+        handle: {
+            crumb: (data: number | string | [] | {}) => React.ReactNode
+        }
+        data: number | string | [] | {}
+    }[]
 
-export const Breadcrumbs = (props: Props) => {
-    let matches = useMatches()
-    if (props.text && props.id) {
-        crumbs = matches.map((match) => {
-            return []
+export const Breadcrumbs = () => {
+    let matches = useMatches() as ReturnType<typeof useMatchesFix>
+    let crumbs = matches
+        .filter((match) => Boolean(match.handle?.crumb))
+        .map((match) => {
+            return match.handle?.crumb(match.data)
         })
 
-        return (
-            <Stack spacing={2}>
-                <MuiBreadcrumbs
-                    separator={<NavigateNextIcon fontSize="small" />}
-                    aria-label="breadcrumb"
-                >
-                    {crumbs.map((crumb, index) => (
-                        <div key={index}>{crumb}</div>
-                    ))}
-                </MuiBreadcrumbs>
-            </Stack>
-        )
-    }
+    return (
+        <Stack spacing={2}>
+            <MuiBreadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+            >
+                {crumbs}
+            </MuiBreadcrumbs>
+        </Stack>
+    )
 
     return <></>
 }

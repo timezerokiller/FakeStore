@@ -1,4 +1,4 @@
-import { AllProducts } from "pages/category/allProducts"
+import { AllProducts } from "pages/home/allProducts"
 import { useState } from "react"
 
 export const HomePage = () => {

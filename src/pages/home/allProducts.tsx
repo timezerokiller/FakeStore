@@ -37,7 +37,7 @@ export const AllProducts = ({ page, totalPages, setTotalPages, setPage }: Props)
 
     return (
         <Stack>
-            <h1>Все товары</h1>
+            <h1>All Products</h1>
             <Grid container spacing={2}>
                 {data ? (
                     data.slice(page * 10 - 10, page * 10).map((product, index) => {
