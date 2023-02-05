@@ -12,7 +12,7 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore"
 
 import { useAppDispatch } from "shared/hooks/redux/useAppDispatch"
 import { addProductInCard } from "services/slice/shop"
-import { PRODUCT_URL } from "shared/constants"
+import { CATEGORY_URL, PRODUCT_URL } from "shared/constants"
 import { IProduct } from "shared/interface/product"
 import { useSnackbar } from "notistack"
 
@@ -53,7 +53,9 @@ export const ProductCard = (props: props) => {
                     >
                         <AddShoppingCartIcon />
                     </Button>
-                    <Link to={`${PRODUCT_URL}/${props.product.id}`}>
+                    <Link
+                        to={`${CATEGORY_URL}/${props.product.category}${PRODUCT_URL}/${props.product.id}`}
+                    >
                         <Button size="small">
                             <ReadMoreIcon />
                         </Button>

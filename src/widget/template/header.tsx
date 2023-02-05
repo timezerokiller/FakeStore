@@ -4,11 +4,9 @@ import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 
-import { Badges } from "widget/components/badge"
+import { ShoppingCardBadge } from "widget/components/shoppingCardBadge"
 import { drawerWidth } from "."
-import { useAppSelector } from "shared/hooks/redux/useAppSelector"
 import { Link } from "react-router-dom"
 
 type Props = {
@@ -16,8 +14,6 @@ type Props = {
 }
 
 export const Header = ({ handleDrawerToggle }: Props) => {
-    const card = useAppSelector((state) => state.shop.card)
-
     return (
         <AppBar
             position="fixed"
@@ -50,11 +46,7 @@ export const Header = ({ handleDrawerToggle }: Props) => {
                     </Typography>
                     <Box sx={{ display: { md: "flex" } }}>
                         <Link to={"/card"}>
-                            <Badges
-                                icon={<ShoppingCartIcon sx={{ color: "white" }} />}
-                                count={card.length}
-                                max={99}
-                            />
+                            <ShoppingCardBadge />
                         </Link>
                     </Box>
                 </Box>

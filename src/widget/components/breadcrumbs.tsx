@@ -14,7 +14,9 @@ let crumbs
 export const Breadcrumbs = (props: Props) => {
     let matches = useMatches()
     if (props.text && props.id) {
-        crumbs = matches.map((match: any) => match!.handle?.crumb(props.text, props.id))
+        crumbs = matches.map((match) => {
+            return []
+        })
 
         return (
             <Stack spacing={2}>
@@ -23,9 +25,7 @@ export const Breadcrumbs = (props: Props) => {
                     aria-label="breadcrumb"
                 >
                     {crumbs.map((crumb, index) => (
-                        <Link key={index} to={crumb.props.to}>
-                            {crumb.props.children}
-                        </Link>
+                        <div key={index}>{crumb}</div>
                     ))}
                 </MuiBreadcrumbs>
             </Stack>

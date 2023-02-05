@@ -8,7 +8,7 @@ import Drawer from "@mui/material/Drawer"
 import Toolbar from "@mui/material/Toolbar"
 
 import { Navbar } from "./navbar"
-import { Badges } from "widget/components/badge"
+import { Badges } from "widget/components/shoppingCardBadge"
 import { Header } from "./header"
 
 export const drawerWidth = 240

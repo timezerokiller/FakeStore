@@ -30,16 +30,17 @@ export const router = createBrowserRouter(
                         <Link to={`/category/${categoryId}`}>{data}</Link>
                     ),
                 }}
-            />
-            <Route
-                path="product/:productId"
-                element={<ProductPage />}
-                handle={{
-                    crumb: (data: string, productId: number) => {
-                        return <Link to={`/product/${productId}`}>{data}</Link>
-                    },
-                }}
-            />
+            >
+                <Route
+                    path="product/:productId"
+                    element={<ProductPage />}
+                    handle={{
+                        crumb: (data: string, productId: number) => {
+                            return <Link to={`/product/${productId}`}>{data}</Link>
+                        },
+                    }}
+                />
+            </Route>
             <Route
                 path="card"
                 element={<CardPage />}

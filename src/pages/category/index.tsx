@@ -1,11 +1,15 @@
 import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { Outlet, useParams } from "react-router-dom"
 import { ProductsInCategory } from "./productsInCategory"
 
 export const CategoryPage = () => {
-    const { categoryName } = useParams()
+    const { categoryName, productId } = useParams()
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
+
+    if (productId) {
+        return <Outlet />
+    }
 
     if (categoryName) {
         return (
